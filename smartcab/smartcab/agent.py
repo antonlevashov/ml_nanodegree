@@ -47,7 +47,7 @@ class LearningAgent(Agent):
         else:
             self.trial += 1
             # Default : self.epsilon = self.epsilon - 0.05
-            self.epsilon = self.epsilon * 0.995
+            self.epsilon = self.epsilon * 0.993
 
         return None
 
@@ -128,22 +128,29 @@ class LearningAgent(Agent):
         ###########
 
         # Be sure that when choosing an action with highest Q-value that you randomly select between actions that "tie".
-
+        
 		# When learning (learning = True):
         if self.learning:
-            # Choose a random action with 'epsilon' probability
-            if random.random() <= self.epsilon:
+
+        	# Choose a random action with 'epsilon' probability
+        	if random.random() <= self.epsilon:
                 action = random.choice(self.valid_actions)
+
             # Otherwise, choose an action with the highest Q-value for the current state
             else:
-                # Search through Q-table for all actions that match maxQ value of current state.
+            	# Search through Q-table for all actions that match maxQ value of current state.
                 maxQ_actions = self.get_maxQ(self.state)
                 # print maxQ_actions
                 # Randomly select an action from all available best actions.
                 action = random.choice([action for action in self.valid_actions if self.Q[state][action]==maxQ_actions])
+
+
         # When not learning, choose a random action
         else:
-            action = random.choice(self.valid_actions)
+        	action = random.choice(self.valid_actions)
+
+
+
 
         return action
 
@@ -227,5 +234,5 @@ def run():
 if __name__ == '__main__':
     start = time.time()
     run()
-    #end = time.time()
-    #print end - start
+    end = time.time()
+    print end - start
